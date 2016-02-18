@@ -1,3 +1,5 @@
-app:
-    resource: "@AppBundle/Controller/"
+techforline_main:
+    resource: "@TechforlineMainBundle/Controller/"
     type:     annotation
+    prefix:   /
+

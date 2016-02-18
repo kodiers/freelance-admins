@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/techforlinemain/css/vendor/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/techforlinemain/css/vendor/bootstrap-theme.min.css') }}">
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('bundles/techforlinemain/js/vendor/jquery-2.2.0.min.js') }}"></script>
+        <script src="{{ asset('bundles/techforlinemain/js/vendor/bootstrap.min.js') }}"></script>
+    {% endblock %}
+</body>
+</html>
