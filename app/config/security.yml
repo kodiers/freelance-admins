@@ -21,6 +21,11 @@ security:
             security: false
 
         main:
+            anonymous: ~
+            form_login:
+               login_path: login
+               check_path: login
+               csrf_token_generator: security.csrf.token_manager
             pattern: ^/
             http_basic: ~
             #provider: techforline_db_provider
