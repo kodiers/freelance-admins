@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * @ORM\Table(name="users")
@@ -21,38 +22,39 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
-class User implements UserInterface, \Serializable
+//class User extends BaseUser implements UserInterface, \Serializable
+class User extends BaseUser
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
-    /**
-     * @ORM\Column(type="string", length=50, unique=true)
-     * @Assert\NotBlank()
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $password;
+//    /**
+//     * @ORM\Column(type="string", length=50, unique=true)
+//     * @Assert\NotBlank()
+//     */
+//    protected $username;
+//
+//    /**
+//     * @ORM\Column(type="string", length=64)
+//     */
+//    protected $password;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
-    private $plainPassword;
+    protected $plainPassword;
 
-    /**
-     * @ORM\Column(type="string", length=50, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    private $email;
+//    /**
+//     * @ORM\Column(type="string", length=50, unique=true)
+//     * @Assert\NotBlank()
+//     * @Assert\Email()
+//     */
+//    protected $email;
 
     /**
      * @ORM\Column(type="boolean", length=64)
@@ -64,7 +66,9 @@ class User implements UserInterface, \Serializable
      */
     public function __construct()
     {
+        parent::__construct();
         $this->isActive = true;
+        $this->enabled = true;
     }
 
     /**
