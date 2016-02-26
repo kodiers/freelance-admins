@@ -1,0 +1,4 @@
+services:
+#    techforline_user.example:
+#        class: Techforline\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
