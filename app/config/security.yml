@@ -12,8 +12,8 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-#        fos_userbundle:
-#            id: fos_user.user_provider.username_email
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
 #        techforline_db_provider:
 #            entity:
 #                class: Techforline\MainBundle:User
@@ -29,10 +29,15 @@ security:
 
         main:
             pattern: ^/
-#            form_login:
-#                provider: fos_userbundle
-#                csrf_provider: security.csrf.token_manager
-#            logout: true
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: security.csrf.token_manager
+                require_previous_session: false
+            logout: true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 604800 # 1 week in seconds
+                path:     /
             anonymous: true
 #            anonymous: ~
 #            form_login:
