@@ -8,6 +8,7 @@
 
 namespace Techforline\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,9 +25,16 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * TODO: update database (schema:update doesn't work)
+     * @ORM\OneToMany(targetEntity="Techforline\MainBundle\Entity\Orders", mappedBy="customer")
+     */
+    protected $orders;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
+        $this->orders = new ArrayCollection();
     }
 }
