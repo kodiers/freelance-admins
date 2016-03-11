@@ -57,27 +57,27 @@ class Orders
     protected $updatedAt;
 
     /**
-     * TODO: change to OneToMany
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="Techforline\MainBundle\Entity\PayForms", mappedBy="orders")
      */
     protected $payForm;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Techforline\UserBundle\Entity\User", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="Techforline\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $customer;
 
     /**
      * TODO: change to OneToMany
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $attachedFile;
 
-//    public function __construct()
-//    {
+    public function __construct()
+    {
 //        $this->customer = new ArrayCollection();
-//    }
+        $this->payForm = new ArrayCollection();
+    }
 
     /**
      * @return mixed

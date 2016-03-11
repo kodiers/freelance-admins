@@ -12,6 +12,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('TechforlineMainBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $orders = $em->getRepository('TechforlineMainBundle:Orders')->findBy(array(), array('updatedAt' => 'DESC'));
+        return $this->render('TechforlineMainBundle:Default:index.html.twig', array('orders' => $orders));
     }
 }
