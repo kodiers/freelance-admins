@@ -11,6 +11,12 @@
                         <p>{{ order.description }}</p>
                         <small>{{ order.cost }}</small>
                         <small>{{ order.createdAt|date('Y-m-d') }}</small>
+                            <small>
+                                {% for payf in order.payForm %}
+                                    {{ payf.title }}
+                                {% endfor %}
+                            </small>
+
                         <br>
                     {% endfor %}
                 {% else %}

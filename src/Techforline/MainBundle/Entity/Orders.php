@@ -9,6 +9,7 @@ namespace Techforline\MainBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -25,11 +26,13 @@ class Orders
     protected $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     protected $title;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     protected $description;
@@ -57,7 +60,7 @@ class Orders
     protected $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Techforline\MainBundle\Entity\PayForms", mappedBy="orders")
+     * @ORM\ManyToMany(targetEntity="Techforline\MainBundle\Entity\PayForms", inversedBy="orders")
      */
     protected $payForm;
 
@@ -210,5 +213,15 @@ class Orders
     public function setCustomer($customer)
     {
         $this->customer = $customer;
+    }
+
+    public function addPayForm(PayForms $payForms)
+    {
+        $this->payForm[] = $payForms;
+    }
+
+    public function removePayForm(PayForms $payForms)
+    {
+        $this->payForm->removeElement($payForms);
     }
 }

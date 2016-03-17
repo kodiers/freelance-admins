@@ -35,7 +35,7 @@ class PayForms
     protected $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Techforline\MainBundle\Entity\Orders", mappedBy="payForm")
+     * @ORM\ManyToMany(targetEntity="Techforline\MainBundle\Entity\Orders", inversedBy="payForm")
      * @ORM\JoinTable(name="orders_payform")
      */
     protected $orders;
@@ -130,7 +130,7 @@ class PayForms
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @ORM\PrePersist
      */
     public function setCreatedAt()
     {
@@ -147,7 +147,7 @@ class PayForms
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * @ORM\PreUpdate
      */
     public function setUpdatedAt()
     {
