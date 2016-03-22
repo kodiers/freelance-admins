@@ -17,17 +17,18 @@ use Techforline\MainBundle\Entity\Orders;
 class OrdersController extends Controller
 {
     /**
-     * @Route("/addorder", name="add_order")
+     * @Route("/orders/add", name="add_order")
      * @Method({"GET", "POST"})
      */
     public function addorderAction(Request $request)
     {
         $order = new Orders();
+        $order->setCustomer($this->getUser());
         $form = $this->createForm(OrdersType::class, $order, array('method' => 'POST'));
         $form->handleRequest($request);
         if($form->isValid() && $form->isSubmitted())
         {
-            $order->setCustomer($this->getUser());
+//            $order->setCustomer($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->flush();

@@ -65,6 +65,7 @@ class Orders
     protected $payForm;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Techforline\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -76,10 +77,16 @@ class Orders
      */
     protected $attachedFile;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Techforline\MainBundle\Entity\Comments", mappedBy="order")
+     */
+    protected $comments;
+
     public function __construct()
     {
 //        $this->customer = new ArrayCollection();
         $this->payForm = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -223,5 +230,31 @@ class Orders
     public function removePayForm(PayForms $payForms)
     {
         $this->payForm->removeElement($payForms);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    public function addComments(Comments $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    public function removeComments(Comments $comments)
+    {
+        $this->comments->removeElement($comments);
     }
 }
