@@ -11,7 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Techforline\MainBundle\Entity\Comments;
 use Techforline\MainBundle\Form\Type\OrdersType;
+use Techforline\MainBundle\Form\Type\CommentsType;
 use Techforline\MainBundle\Entity\Orders;
 
 class OrdersController extends Controller
@@ -34,5 +36,24 @@ class OrdersController extends Controller
             $em->flush();
         }
         return $this->render("@TechforlineMain/Default/addorder.html.twig", array('form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/orders/{id}", name="order_detail")
+     */
+    public function orderdetailsAction($id)
+    {
+        $order_repository = $this->getDoctrine()->getRepository('TechforlineMainBundle:Orders');
+        $comments_repository = $this->getDoctrine()->getRepository('TechforlineMainBundle:Comments');
+        $order = $order_repository->find($id);
+        $comments = $comments_repository->findByOrder($order);
+        $comment = new Comments();
+        $comment->setUser($this->getUser());
+        $form = $this->createForm(CommentsType::class, $comment, array('method' => 'POST'));
+        return $this->render("TechforlineMainBundle:Default:orderdetails.html.twig", array(
+            "order" => $order,
+            "comments" => $comments,
+            "form" => $form->createView(),
+        ));
     }
 }

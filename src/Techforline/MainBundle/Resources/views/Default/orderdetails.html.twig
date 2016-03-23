@@ -1,0 +1,32 @@
+{% extends 'TechforlineMainBundle:Default:base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ order.title }}</h1>
+                <p>{{ order.description }}</p>
+                <small>{{ order.cost }}</small>
+                <small>{{ order.createdAt|date('Y-m-d') }}</small>
+                <small>
+                    {% for payf in order.payForm %}
+                        {{ payf.title }}
+                    {% endfor %}
+                </small>
+                {{ form(form) }}
+            </div>
+        </div>
+        {% if comments %}
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Comments</h2>
+                    {% for comment in comments %}
+                        <p>
+                            {{ comment.description }}
+                            {{ comment.user }}
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
